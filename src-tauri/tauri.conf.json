@@ -27,7 +27,8 @@
         "skipTaskbar": true,
         "alwaysOnBottom": true,
         "visible": false,
-        "focus": false
+        "focus": false,
+        "additionalBrowserArgs": "--disable-gpu --disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection"
       }
     ],
     "security": {

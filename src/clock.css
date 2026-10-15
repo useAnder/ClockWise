@@ -153,6 +153,11 @@ body {
   transform: rotateX(90deg);
   animation: flip-bottom 0.28s ease-out 0.28s forwards;
 }
+/* "lite" mode steps the flaps from JS (see flip.ts). */
+.flap.manual {
+  animation: none;
+}
+
 @keyframes flip-top {
   to {
     transform: rotateX(-90deg);

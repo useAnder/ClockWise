@@ -20,6 +20,10 @@ use tauri_plugin_autostart::{MacosLauncher, ManagerExt};
 
 const CLOCK: &str = "clock";
 const SETTINGS: &str = "settings";
+/// Software rendering: the GPU process alone costs ~130 MB for a few digits.
+/// Must match `additionalBrowserArgs` in tauri.conf.json, since all webviews
+/// share one WebView2 environment. The rest are Tauri's default flags.
+const BROWSER_ARGS: &str = "--disable-gpu --disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection";
 
 /// Settings are a free-form JSON object: the frontend owns the schema and its
 /// defaults. The backend only cares about `autostart` and `position`.
@@ -110,6 +114,7 @@ fn show_settings(app: &AppHandle) {
         .title("ClockWise — Configurações")
         .inner_size(460.0, 720.0)
         .min_inner_size(400.0, 480.0)
+        .additional_browser_args(BROWSER_ARGS)
         .center()
         .build();
     if let Err(e) = built {

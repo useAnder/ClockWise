@@ -3,6 +3,7 @@ import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 
 export type ClockStyle = "flip-light" | "flip-dark" | "dots" | "text";
 export type Panel = "none" | "light" | "dark";
+export type Animation = "smooth" | "lite" | "off";
 
 export interface Settings {
   style: ClockStyle;
@@ -20,6 +21,8 @@ export interface Settings {
   autoColor: boolean;
   color: string;
   shadow: boolean;
+  /** Flip animation; "lite" draws few frames, which matters with GPU disabled. */
+  animation: Animation;
   /** Disables dragging the clock around. */
   locked: boolean;
   autostart: boolean;
@@ -39,6 +42,7 @@ export const DEFAULTS: Settings = {
   autoColor: true,
   color: "#ffffff",
   shadow: true,
+  animation: "lite",
   locked: false,
   autostart: true,
 };

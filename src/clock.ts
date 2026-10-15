@@ -65,11 +65,16 @@ function schedule(): void {
 
 function apply(s: Settings): void {
   settings = s;
-  const create = { "flip-light": () => createFlip(s.showSeconds), "flip-dark": () => createFlip(s.showSeconds), dots: () => createDots(s.showSeconds), text: createText }[s.style];
+  const create = {
+    "flip-light": () => createFlip(s.showSeconds, s.animation),
+    "flip-dark": () => createFlip(s.showSeconds, s.animation),
+    dots: () => createDots(s.showSeconds),
+    text: createText,
+  }[s.style];
   renderer = create();
   dateFormat = buildDateFormat(s);
 
-  root.className = [`style-${s.style}`, `panel-${s.panel}`, s.shadow ? "shadow" : "", s.locked ? "locked" : ""].join(" ");
+  root.className = [`style-${s.style}`, `panel-${s.panel}`, s.shadow ? "shadow" : "", s.locked ? "locked" : "", `anim-${s.animation}`].join(" ");
   root.style.fontSize = `${16 * s.scale}px`;
   root.style.opacity = String(s.opacity);
   if (s.autoColor) root.style.removeProperty("--fg");
