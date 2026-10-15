@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClockWise — Configurações</title>
+    <link rel="stylesheet" href="/src/settings.css" />
+  </head>
+  <body>
+    <form id="form" autocomplete="off">
+      <section>
+        <h2>Estilo</h2>
+        <div class="styles">
+          <label class="style-card">
+            <input type="radio" name="style" value="flip-light" />
+            <span class="preview p-flip-light"><b>18</b><b>09</b><b>24</b></span>
+            <span class="caption">Flip claro</span>
+          </label>
+          <label class="style-card">
+            <input type="radio" name="style" value="flip-dark" />
+            <span class="preview p-flip-dark"><b>13</b><b>29</b><b>06</b></span>
+            <span class="caption">Flip escuro</span>
+          </label>
+          <label class="style-card">
+            <input type="radio" name="style" value="dots" />
+            <span class="preview p-dots">13:28<small>06</small></span>
+            <span class="caption">Matriz de pontos</span>
+          </label>
+          <label class="style-card">
+            <input type="radio" name="style" value="text" />
+            <span class="preview p-text">18:14</span>
+            <span class="caption">Texto</span>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Formato</h2>
+        <label class="row">
+          <span>Formato da hora</span>
+          <select name="hour12" data-type="bool">
+            <option value="false">24 horas</option>
+            <option value="true">12 horas (AM/PM)</option>
+          </select>
+        </label>
+        <label class="row"><span>Mostrar segundos</span><input type="checkbox" name="showSeconds" /></label>
+      </section>
+
+      <section>
+        <h2>Conteúdo</h2>
+        <label class="row"><span>Dia da semana</span><input type="checkbox" name="showWeekday" /></label>
+        <label class="row"><span>Dia e mês</span><input type="checkbox" name="showDate" /></label>
+        <label class="row"><span>Ano</span><input type="checkbox" name="showYear" /></label>
+        <label class="row">
+          <span>Idioma</span>
+          <select name="locale">
+            <option value="auto">Do sistema</option>
+            <option value="pt-BR">Português (Brasil)</option>
+            <option value="en-US">English (US)</option>
+            <option value="en-GB">English (UK)</option>
+            <option value="es-ES">Español</option>
+            <option value="fr-FR">Français</option>
+            <option value="de-DE">Deutsch</option>
+          </select>
+        </label>
+      </section>
+
+      <section>
+        <h2>Aparência</h2>
+        <label class="row">
+          <span>Tamanho <output data-for="scale"></output></span>
+          <input type="range" name="scale" min="0.5" max="3" step="0.05" />
+        </label>
+        <label class="row">
+          <span>Opacidade <output data-for="opacity"></output></span>
+          <input type="range" name="opacity" min="0.2" max="1" step="0.05" />
+        </label>
+        <label class="row">
+          <span>Fundo</span>
+          <select name="panel">
+            <option value="light">Painel claro</option>
+            <option value="dark">Painel escuro</option>
+            <option value="none">Sem fundo</option>
+          </select>
+        </label>
+        <label class="row"><span>Cor automática</span><input type="checkbox" name="autoColor" /></label>
+        <label class="row" data-show-when="autoColor=false">
+          <span>Cor do texto</span>
+          <input type="color" name="color" />
+        </label>
+        <label class="row"><span>Sombra</span><input type="checkbox" name="shadow" /></label>
+      </section>
+
+      <section>
+        <h2>Sistema</h2>
+        <label class="row"><span>Iniciar com o sistema</span><input type="checkbox" name="autostart" /></label>
+        <label class="row"><span>Travar posição</span><input type="checkbox" name="locked" /></label>
+        <p class="hint">Arraste o relógio para movê-lo. Um clique nele abre este painel.</p>
+      </section>
+
+      <footer>
+        <button type="button" id="reset">Restaurar padrões</button>
+        <button type="button" id="quit" class="danger">Sair do ClockWise</button>
+      </footer>
+    </form>
+    <script type="module" src="/src/settings.ts"></script>
+  </body>
+</html>

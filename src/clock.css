@@ -1,0 +1,220 @@
+html,
+body {
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  /* Room for the panel shadow inside the transparent window. */
+  padding: 18px;
+  width: max-content;
+}
+
+#clock {
+  --fg: #ffffff;
+  --muted: color-mix(in srgb, var(--fg) 70%, transparent);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55em;
+  width: max-content;
+  color: var(--fg);
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  cursor: grab;
+}
+#clock.locked {
+  cursor: pointer;
+}
+
+/* ---------- panel ---------- */
+
+#clock.panel-light,
+#clock.panel-dark {
+  padding: 1.6em 2.2em;
+  border-radius: 1em;
+}
+#clock.panel-light {
+  --fg: #3a3d45;
+  background: linear-gradient(180deg, #f8f9fb, #e7e9ee);
+}
+#clock.panel-dark {
+  background: rgba(22, 24, 30, 0.72);
+}
+#clock.shadow.panel-light,
+#clock.shadow.panel-dark {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+#clock.shadow.panel-none {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.date {
+  font-size: 1em;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.ampm {
+  font-size: 0.32em;
+  font-weight: 600;
+  color: var(--muted);
+  align-self: flex-end;
+}
+
+/* ---------- flip ---------- */
+
+.time.flip {
+  gap: 0.22em;
+  font-size: 3.4em;
+  font-family: Bahnschrift, "DIN Alternate", "Roboto Condensed", "Arial Narrow", sans-serif;
+  font-weight: 700;
+}
+.style-flip-light {
+  --card-bg: #ffffff;
+  --card-fg: #2b2e35;
+  --split: rgba(0, 0, 0, 0.12);
+}
+.style-flip-dark {
+  --card-bg: #141414;
+  --card-fg: #f4f4f4;
+  --split: rgba(255, 255, 255, 0.28);
+}
+
+.card {
+  position: relative;
+  width: 1.36em;
+  height: 1.24em;
+  perspective: 5em;
+  color: var(--card-fg);
+  text-shadow: none;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 0.015em);
+  height: 0.03em;
+  background: var(--split);
+  z-index: 3;
+}
+
+.half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  background: var(--card-bg);
+  backface-visibility: hidden;
+}
+.half span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.half.top {
+  top: 0;
+  border-radius: 0.12em 0.12em 0 0;
+  transform-origin: 50% 100%;
+}
+.half.top span {
+  top: 0;
+}
+.half.bottom {
+  bottom: 0;
+  border-radius: 0 0 0.12em 0.12em;
+  transform-origin: 50% 0;
+}
+.half.bottom span {
+  bottom: 0;
+}
+
+.flap {
+  z-index: 2;
+}
+.flap.top {
+  animation: flip-top 0.28s ease-in forwards;
+}
+.flap.bottom {
+  transform: rotateX(90deg);
+  animation: flip-bottom 0.28s ease-out 0.28s forwards;
+}
+@keyframes flip-top {
+  to {
+    transform: rotateX(-90deg);
+  }
+}
+@keyframes flip-bottom {
+  to {
+    transform: rotateX(0deg);
+  }
+}
+
+/* ---------- dot matrix ---------- */
+
+.time.dots {
+  --dot: 0.34em;
+  --gap: 0.12em;
+  gap: 0.5em;
+  align-items: flex-end;
+  font-size: 1em;
+}
+.dots .main,
+.dots .small {
+  display: flex;
+  gap: 0.5em;
+}
+.dots .small {
+  font-size: 0.5em;
+  gap: 0.35em;
+}
+.glyph {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 5), var(--dot));
+  gap: var(--gap);
+}
+.glyph i {
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--fg);
+  opacity: 0.08;
+}
+.glyph i.on {
+  opacity: 0.85;
+}
+
+/* ---------- text ---------- */
+
+.time.text {
+  align-items: baseline;
+  font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 5em;
+  letter-spacing: -0.01em;
+}
+.text .sec {
+  font-size: 0.45em;
+  color: var(--muted);
+}
+.text .ampm {
+  margin-left: 0.25em;
+  align-self: baseline;
+}
+.style-text .date {
+  font-size: 1.2em;
+}
