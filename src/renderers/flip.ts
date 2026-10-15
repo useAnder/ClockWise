@@ -10,13 +10,20 @@ import type { Animation } from "../settings-model";
 
 // "lite" frames: [top flap angle, bottom flap angle]. Each step is one repaint;
 // a CSS animation would repaint at 60 fps, which is costly in software rendering.
+// ~25 fps, eased like the CSS version: the top flap accelerates as it falls,
+// the bottom one decelerates as it lands.
+const LITE_STEPS = 5;
 const LITE_FRAMES: [number, number][] = [
-  [-45, 90],
-  [-90, 90],
-  [-90, 45],
-  [-90, 0],
+  ...Array.from({ length: LITE_STEPS }, (_, i): [number, number] => {
+    const t = (i + 1) / LITE_STEPS;
+    return [-90 * t * t, 90];
+  }),
+  ...Array.from({ length: LITE_STEPS }, (_, i): [number, number] => {
+    const t = (i + 1) / LITE_STEPS;
+    return [-90, 90 * (1 - t) * (1 - t)];
+  }),
 ];
-const LITE_FRAME_MS = 90;
+const LITE_FRAME_MS = 40;
 
 /**
  * A split-flap card. On change the old top half folds down over the new one,
